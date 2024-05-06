@@ -1,22 +1,19 @@
-# Project Name: Networking Shell Utilities
+# ShellServe
+<div align="center">
+<img src="https://github.com/7etsuo/ShellServe/assets/90065760/5674949b-cdf0-4330-8391-17a62f7e8f98" width="600" height="400">
+</div>
+
+------------------------------------------------------------
+## Author
+> * 7etsuo 
+> * [X](https://x.com/7etsuo)
+> * [GitHub](https://github.com/7etsuo)
 
 ## Description
-This repository houses a networking shell utility set, both server and client sides, that allows for communication between a client and a server through various commands.
-
-## Supporting Documents
-
-### **Document Zero Presentation Networking Shell Utility provides my talking points for the presentation**
-
-It highlights the complete build process, features, known limitations, and design rationale behind the utility.
-
-## License
-
-This project is distributed under the GNU General Public License v3.0. For more details, see GNU General Public License v3.0.
+This repository contains a networking shell utility set, encompassing both server and client sides, that enables communication through various commands. It also supports uploading, deleting, and downloading files.
 
 ## Contributions
-
 Feel free to fork the project and submit pull requests. Please adhere to the existing coding style for consistency.
 
 ## Support
 If you encounter any issues or have questions, please open an issue.
-
