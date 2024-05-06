@@ -1,0 +1,82 @@
+Assume the endianess is wrong. 
+
+Function     Description
+htons()      host to network short
+htonl()      host to network long
+ntohs()      network to host short
+ntohl()      network to host long
+
+Convert numbers to Network Byte Order before they go out on the wire, and covert them to Host Byte Order as they come in off the wire. 
+
+For floating point beej's guide has a section for Serialization. 
+
+---
+
+structs:
+
+socket descriptor: int
+
+struct addrinfo 
+> This struct is used to prep the socket address
+
+struct addrinfo {
+    int              ai_flags;     // AI_PASSIVE, AI_CANONNAME, etc.
+    int              ai_family;    // AF_INET, AF_INET6, AF_UNSPEC
+    int              ai_socktype;  // SOCK_STREAM, SOCK_DGRAM
+    int              ai_protocol;  // use 0 for "any"
+    size_t           ai_addrlen;   // size of ai_addr in bytes
+    struct sockaddr *ai_addr;      // struct sockaddr_in or _in6
+    char            *ai_canonname; // full canonical hostname
+
+    struct addrinfo *ai_next;      // linked list, next node
+};
+
+man 3 getaddrinfo() <---- not a system call but ????
+
+struct sockaddr { 
+    unsigned short  sa_family;      // address family, AF_xxx
+    char            sa_data[14];    // 14 bytes of protocol address (destination address and port number) this is packed by getaddrinfo
+};
+
+// this struct is the same size of struct sockaddr rather than packing sa_data by hand like lunatics sockaddr_in can be cast to sockaddr. 
+struct sockaddr_in {
+    short int           sin_family; // address family, AF_xxx
+    unsigned short int  sin_port;   // Port Number  Probably need htons() here
+    struct in_addr      sin_addr;   // Internet Address Probably need htonl() here
+    unsgined char       sin_zero[8] // Pad to length of addrinfo 
+};
+
+// Internet Address IPV4 only struct in6_addr for IPv6)
+struct in_addr { 
+    uint32_t s_addr; // 4 bytes
+};
+
+assume we have the following defined. 
+
+struct sockaddr_in ina; 
+
+Then ina.sin_addr.s_addr; is our IPv4 address. 
+
+struct sockaddr_storage; holds both IPv4 and IPv6 structures. 
+This is the sizeof an IPv6 struct which is larger than an IPv4 struct so it can be cast to either. 
+
+struct sockaddr_storage { 
+    sa_family_t ss_family;      // address family
+
+    // rest of the stuff is padding. 
+};
+
+What's important here is that we can see the address family in the ss_family field we check this to see if it's AF_INET or AF_INET6. Then we cast it to 
+struct sockaddr_in or struct sockaddr_in6;
+
+we don't have to pack these by hand like insane people. 
+
+struct sockaddr_in sa;      // ip4 
+struct sockaddr_in6 sa6;    // ip6
+
+inet_pton(AF_INET, "127.0.0.1", &(sa.sin_addr)); // converts 127.0.0.1 to a long in network byte order. (Maybe)
+
+ai_family can be AF_UNSPEC for ipv6 and ipv4.
+ai_addr is a pointer to a struct sockaddr
+getaddrinfo() will fill this out for us. 
+

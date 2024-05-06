@@ -1,0 +1,7 @@
+Running suite Syscalls Test Suite
+test/unit_tests.c:59:P:Core:test_mysckread_success:0: Passed
+test/unit_tests.c:84:P:Core:test_mysckread_large_buffer:0: Passed
+test/unit_tests.c:99:P:Core:test_mysckwrite_success:0: Passed
+test/unit_tests.c:115:P:Core:test_mymalloc_and_myfree_success:0: Passed
+Results for all suites run:
+100%: Checks: 4, Failures: 0, Errors: 0

@@ -1,0 +1,16 @@
+Write unit tests for everything.
+
+// this should hold indavidual command lines
+// make an array of pipelines for each pipe
+// CFG's come in nice here for parsing
+struct pipeline 
+{
+
+} 
+
+// Each job is a new pipeline stage
+CL       -> job[> token] [< token] [&]
+job      -> command
+PL       -> command "|" PL              // 
+command  -> token^+                     // split up by tokens
+
